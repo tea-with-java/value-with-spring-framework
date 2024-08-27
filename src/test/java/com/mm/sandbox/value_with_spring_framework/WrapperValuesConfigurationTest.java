@@ -17,7 +17,7 @@ class WrapperValuesConfigurationTest {
     @Autowired
     WrapperValuesConfiguration configuration;
 
-    @Value("${custom.integerWithDefaultValue}")
+    @Value("${custom.integerWithDefaultValue:2024}")
     Integer integerWithDefaultValue;
 
     @Test
