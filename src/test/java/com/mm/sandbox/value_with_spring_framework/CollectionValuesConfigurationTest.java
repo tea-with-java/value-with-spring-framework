@@ -8,16 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(
         properties = {
-                "list=a,c,b"
+                "list=a,c,b,b"
         }
 )
 public class CollectionValuesConfigurationTest {
@@ -28,17 +27,20 @@ public class CollectionValuesConfigurationTest {
 
     @Test
     void testCollection() {
-        assertThat(collection).containsOnly("a,c,b");
+        assertThat(collection).isOfAnyClassIn(LinkedHashSet.class);
+        assertThat(collection).containsOnly("a,c,b,b");
     }
 
     @Test
     void testList() {
-        assertThat(list).containsOnly("a,c,b");
+        assertThat(list).isOfAnyClassIn(ArrayList.class);
+        assertThat(list).containsOnly("a,c,b,b");
     }
 
     @Test
     void testSet() {
-        assertThat(set).containsOnly("a,c,b");
+        assertThat(set).isOfAnyClassIn(LinkedHashSet.class);
+        assertThat(set).containsOnly("a,c,b,b");
     }
 
     @Configuration
